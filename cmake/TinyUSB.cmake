@@ -1,3 +1,5 @@
+# Requires TINYUSB_VERSION to be set to a valid git tag
+# Requires ${CONFIG_DIR}/usb_descriptors.c to be present
 include(UsePackage)
 message(STATUS "Using TinyUSB ${TINYUSB_VERSION}")
 
@@ -19,7 +21,7 @@ add_library(tinyusb
             ${tinyusb_SOURCE_DIR}/common/tusb_fifo.c
             ${tinyusb_SOURCE_DIR}/tusb.c
             ${tinyusb_SOURCE_DIR}/${TINYUSB_PORT}
-            ../app/usb_descriptors.c
+            ${CONFIG_DIR}/usb_descriptors.c
             )
 
 target_include_directories(tinyusb
