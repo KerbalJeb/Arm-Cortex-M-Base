@@ -6,6 +6,7 @@ option(CLONE_TO_LOCAL OFF)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION  TRUE)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
@@ -41,7 +42,7 @@ target_link_options(${EXECUTABLE_NAME}.elf
                       # todo make configuration file that picks up start and end of RAM/ROM from toolchain file
                       -T ${CMAKE_SOURCE_DIR}/LinkerScript.ld
                       # Link for no system calls
-                      --specs=nosys.specs
+                      --specs=nano.specs
                       # Print memory usage and generate map file
                       -Wl,--print-memory-usage,-Map=${PROJECT_BINARY_DIR}/map.map
                     )

@@ -33,10 +33,20 @@ set(CMAKE_OBJDUMP       ${TOOLCHAIN_BIN_DIR}/arm-none-eabi-objdump${TOOLCHAIN_PO
 set(SIZE                ${TOOLCHAIN_BIN_DIR}/arm-none-eabi-size${TOOLCHAIN_POSTFIX})
 
 # Set Required flags
-set(CMAKE_C_FLAGS   "${MCPU_FLAGS} ${VFP_FLAGS} -fno-builtin -fdata-sections -ffunction-sections" CACHE INTERNAL "c compiler flags")
-set(CMAKE_CXX_FLAGS "${MCPU_FLAGS} ${VFP_FLAGS} -fno-builtin -fdata-sections -ffunction-sections" CACHE INTERNAL "cxx compiler flags")
+add_compile_options(${VFP_FLAGS}
+                    -mcpu=${CMAKE_SYSTEM_PROCESSOR}
+                    -mthumb
+                    -ffunction-sections
+                    -fdata-sections
+                    "$<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>"
+                    "$<$<COMPILE_LANGUAGE:CXX>:-fno-rtti>"
+                    "$<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics>"
+                    "$<$<COMPILE_LANGUAGE:CXX>:-fno-use-cxa-atexit>"
+                    )
 set(CMAKE_ASM_FLAGS "${MCPU_FLAGS} -x assembler-with-cpp" CACHE INTERNAL "asm compiler flags")
-set(CMAKE_EXE_LINKER_FLAGS "${MCPU_FLAGS} ${LD_FLAGS} -Wl,-gc-sections" CACHE INTERNAL "exe link flags")
+add_link_options(${MCPU_FLAGS}
+                 ${LD_FLAGS}
+                 -Wl,--gc-sections)
 
 # Limit library/inlcude search paths to avoid picking up system files (may not be needed)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
