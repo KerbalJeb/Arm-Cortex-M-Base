@@ -26,13 +26,8 @@ use_package(
     LOCAL "${LOCAL_REPO_DIR}/cmsis_device"
 )
 
-add_library(cmsis_device
-            ${cmsis_device_SOURCE_DIR}/${START_UP_PATH}
-            ${cmsis_device_SOURCE_DIR}/${SYSTEM_UP_PATH}
-            )
-
-target_include_directories(cmsis_device PUBLIC ${cmsis_device_SOURCE_DIR}/Include)
-target_link_libraries(cmsis_device PRIVATE cmsis::core)
+add_library(cmsis_device INTERFACE)
+target_include_directories(cmsis_device INTERFACE ${cmsis_device_SOURCE_DIR}/Include)
 add_library(cmsis::device ALIAS cmsis_device)
 
 

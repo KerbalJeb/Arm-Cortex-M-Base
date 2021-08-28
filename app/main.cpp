@@ -1,7 +1,10 @@
-#include <FreeRTOS.h>
-#include <task.h>
+#include <stm32f042x6.h>
 
-int main() {
-    vTaskStartScheduler ();
+int main()
+{
+    RCC->AHBENR |= RCC_AHBENR_GPIOBEN;
+    GPIOB->MODER = 1;
+    GPIOB->ODR = 1;
+    while (true){}
     return 0;
 }

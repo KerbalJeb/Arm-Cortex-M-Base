@@ -27,7 +27,11 @@ include(cmsis)
 
 # Executable ELF File
 set(EXECUTABLE_NAME bin)
-add_executable (${EXECUTABLE_NAME}.elf app/main.cpp)
+add_executable (${EXECUTABLE_NAME}.elf
+                app/main.cpp
+                app/startup.cpp
+                app/vectors.cpp
+                )
 
 # Link Options/Libs
 target_link_libraries(${EXECUTABLE_NAME}.elf freertos::freertos cmsis::cmsis)
