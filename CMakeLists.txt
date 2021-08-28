@@ -1,23 +1,29 @@
-# Project Config
 cmake_minimum_required (VERSION 3.20)
-set (CMAKE_CXX_STANDARD 17)
+project ("Arm Cortex-M Base" C CXX ASM)
+option(CLONE_TO_LOCAL OFF)
 
-project ("Arm Cortex-M Base")
+# C++ Standard, GNU extensions disabled
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 # Configuration Director for config files for third party libraries (ex. FreeRTOS)
 set(CONFIG_DIR config)
-
-# Get FreeRTOS
-set(FREERTOS_VERSION V10.4.4)
-include(cmake/FreeRTOS.cmake)
+file (TO_CMAKE_PATH $ENV{HOMEDRIVE}$ENV{HOMEPATH}/repos LOCAL_REPO_DIR)
 
 # Get TinyUSB
 set(TINYUSB_VERSION 0.10.1)
-include(cmake/TinyUSB.cmake)
+include(TinyUSB)
+
+# Get FreeRTOS
+set(FREERTOS_VERSION V10.4.4)
+include(FreeRTOS)
 
 # Get CMSIS
 set(CMSIS_VERSION 5.8.0)
-include(cmake/cmsis.cmake)
+include(cmsis)
 
 # Executable ELF File
 set(EXECUTABLE_NAME bin)

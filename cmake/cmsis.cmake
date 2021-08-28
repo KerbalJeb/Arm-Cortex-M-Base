@@ -1,12 +1,14 @@
+include(UsePackage)
 message(STATUS "Using CMSIS ${CMSIS_VERSION}")
 
-FetchContent_Declare(cmsis_core
-                     GIT_REPOSITORY "https://github.com/ARM-software/CMSIS_5.git"
-                     GIT_TAG "${CMSIS_VERSION}"
-                     )
-FetchContent_MakeAvailable(cmsis_core)
 
-enable_language(ASM)
+use_package(
+    TARGET cmsis_core
+    REMOTE "https://github.com/ARM-software/CMSIS_5.git"
+    LOCAL "${LOCAL_REPO_DIR}/cmsis_core"
+    GIT_TAG "${CMSIS_VERSION}"
+)
+
 
 add_library(cmsis_core INTERFACE)
 target_include_directories(cmsis_core INTERFACE ${cmsis_core_SOURCE_DIR}/CMSIS/Core/Include)
@@ -18,11 +20,11 @@ else()
   message(FATAL_ERROR "Unknown MCU Line: ${MCU_LINE}")
 endif ()
 
-
-FetchContent_Declare(cmsis_device
-                     GIT_REPOSITORY "https://github.com/STMicroelectronics/cmsis_device_f0.git"
-                     )
-FetchContent_MakeAvailable(cmsis_device)
+use_package(
+    TARGET cmsis_device
+    REMOTE "https://github.com/STMicroelectronics/cmsis_device_f0.git"
+    LOCAL "${LOCAL_REPO_DIR}/cmsis_device"
+)
 
 add_library(cmsis_device
             ${cmsis_device_SOURCE_DIR}/${START_UP_PATH}

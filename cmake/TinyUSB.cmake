@@ -1,10 +1,11 @@
-include(FetchContent)
+include(UsePackage)
 message(STATUS "Using TinyUSB ${TINYUSB_VERSION}")
 
-FetchContent_Declare(tinyusb
-    GIT_REPOSITORY "https://github.com/hathach/tinyusb.git"
+use_package(
+    TARGET tinyusb
+    REMOTE "https://github.com/hathach/tinyusb.git"
+    LOCAL "${LOCAL_REPO_DIR}/tinyusb"
     GIT_TAG "${TINYUSB_VERSION}"
-    GIT_SUBMODULES ""
 )
 
 FetchContent_MakeAvailable(tinyusb)
