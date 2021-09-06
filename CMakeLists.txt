@@ -8,23 +8,22 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION  TRUE)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
 # Configuration Director for config files for third party libraries (ex. FreeRTOS)
 set(CONFIG_DIR config)
-file (TO_CMAKE_PATH $ENV{HOMEDRIVE}$ENV{HOMEPATH}/repos LOCAL_REPO_DIR)
 
 # Get TinyUSB
 set(TINYUSB_VERSION 0.10.1)
-include(TinyUSB)
+include(cmake/TinyUSB.cmake)
 
 # Get FreeRTOS
 set(FREERTOS_VERSION V10.4.4)
-include(FreeRTOS)
+include(cmake/FreeRTOS.cmake)
 
 # Get CMSIS
 set(CMSIS_VERSION 5.8.0)
-include(cmsis)
+include(cmake/Cmsis.cmake)
 
 # Executable ELF File
 set(EXECUTABLE_NAME bin)

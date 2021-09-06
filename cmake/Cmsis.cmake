@@ -3,10 +3,9 @@ message(STATUS "Using CMSIS ${CMSIS_VERSION}")
 
 
 use_package(
-    TARGET cmsis_core
-    REMOTE "https://github.com/ARM-software/CMSIS_5.git"
-    LOCAL "${LOCAL_REPO_DIR}/cmsis_core"
-    GIT_TAG "${CMSIS_VERSION}"
+        TARGET cmsis_core
+        GIT_REPOSITORY "https://github.com/ARM-software/CMSIS_5.git"
+        GIT_TAG "${CMSIS_VERSION}"
 )
 
 
